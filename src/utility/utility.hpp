@@ -15,6 +15,10 @@ namespace traffic
 
     double get_distance();
     double get_velocity();
+
+    /**
+     * don't confuse with duration
+     */
     double get_time();
 
     /**
@@ -29,6 +33,12 @@ namespace traffic
      */
     template<typename T>
     T number_of_vehicles();
+
+    /**
+     * duration of a specific event
+     */
+    template <typename T>
+    T get_duration();
     // double convert_metres_to_kilometres(double&);
     // double convert_kilometres_to_metres(double& distance);
     // double convert_seconds_to_hours(double& time);

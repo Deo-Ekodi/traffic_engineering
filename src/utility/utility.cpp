@@ -150,4 +150,12 @@ namespace traffic
         }
         return number;
     }
+
+    template <typename T>
+    T get_duration()
+    {
+        T duration = 0;
+        cout << "Enter duration of observation";
+        cin >> duration;
+    }
 } // namespace traffic
