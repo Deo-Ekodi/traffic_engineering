@@ -10,6 +10,6 @@ namespace traffic
      * 
      * Vt = (summation of spot speeds) / (number of vehicles)
      */
-    template<typename T, typename N = int>
+    template<typename T>
     T time_mean_speed();
 } // namespace traffic

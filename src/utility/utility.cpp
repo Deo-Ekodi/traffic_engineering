@@ -1,5 +1,6 @@
 #include "utility.hpp"
 #include <iostream>
+#include <stdexcept>
 
 
 namespace traffic
@@ -140,6 +141,50 @@ namespace traffic
     }
 
     template <typename T>
+    static inline T get_cummulative_velocity()
+    {
+        T vel;
+        uint32_t num = get_number_of_vehicles();
+        std::cout << "Enter number of vehicles" << std::endl;
+        std::cin >> num;
+        std::cout << "enter respective velocities" << std::end;
+        uint32_t i{0};
+        while(i < num)
+        {
+            std::cout << "vehicle[" << i << "]: ";
+            std::cin >> vel;
+            std::cout << endl;
+            ++i;
+        }
+        return vel;
+    }
+
+    template <typename T>
+    std::pair<T&, int&> get_velocity_cummulative()
+    {
+        T velocity;
+        std::cout << "enter [1] for Km/h" << std::cndl;
+        std::cout << "enter [2] for m/s" << std::endl;
+        std::pair<velocity&, UNIT> pr;
+        int option{0};
+        cin >> option;
+        switch (option)
+        {
+        case 1:
+            pr.first = get_cummulative_velocity();
+            pr.second = UNIT_KM;
+            break;
+        case 2:
+            pr.first = get_cummulative_velocity();
+            pr.second = UNIT_MTR;
+        
+        default:
+            break;
+        }
+        return pr;
+    }
+
+    template <typename T>
     _time<T> get_duration()
     {
         _time<T> _duration;
@@ -187,26 +232,102 @@ namespace traffic
         return _duration;
     }
 
-    template<typename T>
-    T get_length_of_road()
+    /**
+     * provides cummulative durarions regardless of hours or minutes
+     */
+    template <typename T>
+    static inline T get_cummulative_durations()
     {
-        std::cout << "whats the length of the stretch?" << std::endl;
-        T length;
-        std::cin >> length;
+        T cummulatives = 0.0, res = 0.0;
+        uint32_t  num{0}, i{0};
+        std::cout << "how many vehicles observed?" << std::endl;
+        std::cin >> num;
+        std::cout << "enter durations" << std::endl;
+        while (i < num)
+        {
+            cin >> cummmuatives;
+            res += cummulatives;
+            ++i;
+        }
+        
+        return res;
+    }
+
+    template <typename T>
+    std::pair<T&, int&> get_duration_cummulative()
+    {
+        T cummulative{0.0};
+        int option = 0;
+        std::cout << "enter [1] for cummulative duration in hours" << std::endl;
+        std::cout << "enter [2] for cummulative duration in seconds" << std::endl;
+
+        std::pair<T&, int&> pr;
+        
         try
         {
-            if(length <= 0)
+            if(option != 1 || option != 2)
             {
-                throw std::invalid_argument("get_length_of_road() : invalid length entered");
+                throw std::invalid_argument("get_diration_cummulative() : invalid parameter");
             }
-            return length;
+
+            switch (option)
+            {
+                std::cout << "enter duration" << std::endl;
+            // duration in hours
+            case 1:
+                pr.first = get_cummulative_durations();
+                pr.second = UNIT_HR;
+                break;
+            case 2:
+                pr.first  get_cummulative_durations();
+                pr.second = UNIT_SEC;
+                break;
+            
+            default:
+                break;
+            }
         }
         catch(const std::exception& e)
         {
             std::cerr << e.what() << '\n';
         }
         
-        return length;
+        return pr;
+    }
+
+    template<typename T>
+    std::pair<T&, int&> get_length_of_road()
+    {
+        std::pair<T&, int&> pr;
+        std::cout << "whats the length of the stretch?" << std::endl;
+        T length;
+        int units;
+        std::cin >> length;
+        std::cout << "selects units [1] - kilometres, [2] - metres" << std::endl;
+        std::cin >> units;
+        try
+        {
+            if(length <= 0)
+            {
+                throw std::invalid_argument("get_length_of_road() : invalid length entered");
+            }
+            if(units != 1 || units != 2)
+            {
+                throw std::invalid_argument("get_length_of_road() : invalid unit argument");
+            }
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+        
+        pr.first = length;
+        if(units == 1)
+            pr.second = UNIT_KM;
+        if(units == 2)
+            pr.second = UNIT_MTR;
+        
+        return pr;
     }
 
     template<typename T = uint32_t>

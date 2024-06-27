@@ -1,24 +1,18 @@
 #include <iostream>
 
-#include "time_mean_speed.hpp"
 #include "spot_speed/spot_speed.hpp"
+#include "utility/utility.hpp"
 
 using namespace std;
 
 namespace traffic
 {
-    template <typename T, typename N = int>
+    template <typename T>
     T time_mean_speed()
     {
         T tms;
-        N i{0};
-
-        std::cout << "how many vehicles are you  \
-                 dealing with?"
-        std::cout << std::endl;
-
-        N n;
-        std::cin >> n;
+        uint32_t n = get_number_of_vehicles();
+        uint32_t i{0};
 
         while (i < n)
         {

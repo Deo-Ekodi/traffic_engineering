@@ -1,23 +1,46 @@
 #include "spot_speed.hpp"
-#include <vector>
-#include <unordered_set>
-#include <iostream>
+#include "utility/utility.hpp"
 
 using namespace std;
 
 namespace traffic
+
 {
-    double spot_speed()
+    /**
+     * generic function for calculating spot speed
+     */
+    template <typename T>
+    static inline T v1_v2()
     {
-        double vi = 0;
-        double t1, t2, d1, d2;
+        _distance<T> d1, d2;
+        d1 = get_distance();
+        d2 = get_distance();
 
-        std::cout << "enter time 1, time 2, distance 1, \
-                distance 2 respectively"
-             << std::endl;
-        std::cin >> t1, t2, d1, d2;
+        _time<T> t1, t2;
+        t1 = get_duration();
+        t2 = get_duration();
 
-        vi = (d2 - d1) / (t2 - t1);
-        return vi;
+        std::cout << "[1] spot speed in km/h" << std::endl;
+        std::cout << "[2] spot sped in m/s" << std::endl;
+
+        int option{0};
+        std::cin >> option;
+        
+        switch (option)
+        {
+        case 1:
+            return (d1.get_km() - d2.get_km()) / (t1.get_hrs - t2.get_hrs());
+        case 2:
+            return (d1.get_mtr() - d2.get_mtr()) / (t1.get_sec() - t2.get_sec());
+        default:
+            break;
+        }
+    return 0.0;
+    }
+    
+    template <typename T>
+    T spot_speed()
+    {
+        return v1_v2();
     }
 } // namespace traffic

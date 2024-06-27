@@ -9,10 +9,6 @@ namespace traffic
      * obtained as a function of:
      * 1. Time Taken
      * 2. Number of Vehicles
-     * 
-     * VOLUME
-     * -    number of vehicles that pass at a given 
-     *      point for a specified period of time
      */
     template <typename T>
     T flow_rate();

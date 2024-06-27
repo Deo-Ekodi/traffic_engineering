@@ -9,6 +9,14 @@ namespace traffic
     #define SECONDS_PER_MINUTE  60
     #define MINUTES_PER_HOUR    60
     #define METRES_PER_KILOMETRE  1000
+
+    #define UNIT        0
+    #define UNIT_KPH    1
+    #define UNIT_MPS    2
+    #define UNIT_HR     1
+    #define UNIT_SEC    2
+    #define UNIT_KM     1
+    #define UNIT_MTR    2
     // #define
 
     /**
@@ -63,7 +71,7 @@ namespace traffic
      * length of road under analysis
      */
     template<typename T>
-    T get_length_of_road();
+    std::pair<T&, int&> get_length_of_road();
 
     /**
      * GET_DURATION
@@ -86,10 +94,22 @@ namespace traffic
     _velocity<T> get_velocity();
 
     /**
+     * returns pair of cummulative velocity and flag of units
+     */
+    template <typename T>
+    std::pair<T&, int&> get_velocity_cummulative();
+
+    /**
      * get distance traversed
      */
     template <typename T>
     _distance<T> get_distance();
+
+    /**
+     * cummulative duration of vehicles traversing a point + flag units
+     */
+    template <typename T>
+    std::pair<T&, int&> get_duration_cummulative();
 
 /**
  * _VELOCITY
