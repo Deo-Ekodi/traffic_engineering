@@ -11,6 +11,5 @@ namespace traffic
     T concentration()
     {
         T duration = get_duration();
-
     }
 }   //  namespace traffic

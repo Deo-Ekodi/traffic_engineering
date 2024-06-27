@@ -13,12 +13,12 @@ namespace traffic
         T tms;
         N i{0};
 
-        cout << "how many vehicles are you  \
+        std::cout << "how many vehicles are you  \
                  dealing with?"
-        cout << endl;
+        std::cout << std::endl;
 
         N n;
-        cin >> n;
+        std::cin >> n;
 
         while (i < n)
         {
