@@ -79,7 +79,7 @@ namespace traffic
      * #donotCONFUSE with get_time()
      */
     template <typename T>
-    _time<T> get_duration();
+    std::pair<_time<T>&, int&> get_duration();
 
     // /**
     //  * duration of a specific event
@@ -91,7 +91,7 @@ namespace traffic
      * get velocity of vehicle
      */
     template <typename T>
-    _velocity<T> get_velocity();
+    std::pair<_velocity<T>&, int&> get_velocity();
 
     /**
      * returns pair of cummulative velocity and flag of units

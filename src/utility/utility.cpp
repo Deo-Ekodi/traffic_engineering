@@ -90,17 +90,17 @@ namespace traffic
         }
 
         return distance;
-        
     }
 
     template <typename T>
-    _velocity<T> get_velocity()
+    std::pair<_velocity<T>&, int&> get_velocity()
     {
         _velocity<T> velocity;
         int option = 0;
         std::cout << "enter [1] for velocity in kilometres per hour" << std::endl;
         std::cout << "enter [2] for velocity in metres per second" << std::endl;
         
+        std::pair<_velocity<T>&, int&> pr;
         std::cin >> option;
         try
         {
@@ -124,11 +124,11 @@ namespace traffic
             {
             case 1:
                 velocity.set_kph(vel);
-                return vel;
+                pr.second = UNIT_KPH;
                 break;
             case 2:
                 velocity.set_mps(vel);
-                return velocity;
+                pr.second = UNIT_MPS;
                 break;
             default:
                 break;
@@ -138,6 +138,8 @@ namespace traffic
         {
             std::cerr << e.what() << '\n';
         }
+        pr.first = velocity;
+        return pr;
     }
 
     template <typename T>
@@ -185,13 +187,15 @@ namespace traffic
     }
 
     template <typename T>
-    _time<T> get_duration()
+    std::pair<_time<T>&, int&> get_duration()
     {
         _time<T> _duration;
         int option = 0;
         std::cout << "enter [1] for duration in hours" << std::endl;
         std::cout << "enter [2] for duration in seconds" << std::endl;
         
+        std::pair<_time<T>&, int&> pr;
+        pr.second = UNIT;
         std::cin >> option;
         try
         {
@@ -215,11 +219,13 @@ namespace traffic
             {
             case 1:
                 _duration.set_hrs(dur);
-                return _duration;
+                pr.first = _duration;
+                pr.second = UNIT_HR;
                 break;
             case 2:
                 _duration.set_sec(dur);
-                return _duration;
+                pr.first = _duration;
+                pr.second = UNIT_SEC;
                 break;
             default:
                 break;
@@ -229,7 +235,7 @@ namespace traffic
         {
             std::cerr << e.what() << '\n';
         }
-        return _duration;
+        return pr;
     }
 
     /**
